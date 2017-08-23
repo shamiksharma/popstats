@@ -1,0 +1,37 @@
+Key Concepts
+
+Entity
+Anything that can be numerated and segmented, such as people, households,
+income, food-consumption, mobile-data-usage.
+
+Dimensions
+The attributes (e.g. age, gender etc) along which an entity can be segmented
+
+Units of a dimension
+The unique values each dimension can take (e.g. gender can be male, female,
+Age could be 0-14,15-24 etc.). We assume each entity can only be mapped
+to a single unit per dimension. (To be precise, each dimension also has an
+"any" unit, which matches any unit. E.g person John will have 2 genders [male, any])
+
+Segment
+Each combination of possible dimension-units represents a segment
+So [child,male,t1-metro] would be one segment (assuming we had a 3-dim segmentation scheme).
+Each segment can also be thought as a cell in a N-dimensional matrix.
+
+Segment Index (sid)
+A sid identifies a segment using a single 64-bit (16-hex) number, via an encoding scheme.
+Maxint is 2^63 (with one bit for sign) i.e  0x7fffffffffffffff
+Each dimension is assigned a specific hexabit position. e.g. gender gets the rightmost hexbit
+Thus, each dimension can have upto 15 possible dimension values (0x0 reserved for ANY).
+Each dimension-unit is mapped to a specific hex-vale. Eg. gender:{male:0x1, female:0x2}
+Thus, each segment will be represented by a single hex number.
+
+Segmentation 
+A segmentation scheme represents all the info about how the entity will be segmented
+a) dimensions along which the entity will be segmented  (e.g. gender, age, tier)
+b) units for each dimension         e.g. gender: (male, female)
+c) the hex position of each dim     e.g  gender: 0,  age: 1, tier:2
+d) hexcode for each unit            e.g. gender: {male:0x1, female:0x2}
+e) how the entity is distributed along each unit of the dimension (e.g. male:0.51, female:0.49)
+
+

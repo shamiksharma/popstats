@@ -1,0 +1,50 @@
+# Segmentation Scheme
+#
+#   The entity to tbe segmented. Must start with _ (e.g. _ppl)
+#   The entity must specify the dimensions it will be segmented into
+#   Each dimension specifies its own "units" (e.g. gender -> male/female)
+#
+#   You can also define the distribution (ration) between the units.
+#   e.g. gender:{male:50,female:50}
+#   If dist is unspecified, it assumes equal distribution amongst the units
+#
+
+dims :  [gender,age,tier]
+gender: [male,female]
+age  :  [child,youth,adult,mature,old]
+tier :  [t1,t2,t3,t4,t5,t6,t7,t8]
+
+# gender: [unk,male,female]
+# age  :  [unk,child,youth,adult,mature,old]
+# tier :  [unk,t1,t2,t3,t4,t5,t6,t7,t8]
+
+
+dist-gender :
+    - dim: gender
+    - dist: {
+        male  : 0.51,
+        female: 0.49
+    }
+
+dist-age :
+    - dim: age
+    - dist: {
+       child : 0.28,     #age 0-14
+       youth : 0.17,     #age 15-24
+       adult : 0.30,     #age 25-44
+       mature: 0.17,     #age 45-59
+       old   : 0.08     #age 60+kk
+    }
+
+dist-tier :
+    - dim: tier
+    - dist: {
+        t1: 0.06,   # metros. top-8.                 pop > 5M     avg:   10M
+        t2: 0.08,   # cities. Around 50.             pop > 1M     avg: 1500k
+        t3: 0.09,   # towns.  Around 500.            pop > 100k   avg:  250k
+        t4: 0.10,   # small-towns. ~8000.            pop > 5k     avg:   15k
+        t5: 0.15,   # large agrarian centers. ~20k.  pop > 5k     avg:    7k
+        t6: 0.24,   # medium villages. ~100k locs.   pop > 2k     avg:    3k
+        t7: 0.17,   # small villages.  ~150k locs.   pop > 1k     avg:    1.5k
+        t8: 0.11   # settlements      ~350k locs.   pop < 1k     avg:    0.5k
+    }

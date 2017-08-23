@@ -1,0 +1,29 @@
+dims:   [hhi]
+
+hhi :   [sec_a0,sec_a1,sec_a,sec_b,sec_c,sec_d,sec_e]
+
+dist-hhi-1 :
+   - dim  : hhi
+   - cond : { tier: [t1,t2,t3,t4] } # distribution in urban areas
+   - dist : {
+       sec_a0 : 0.005,     # superrich    0.5m hh   2M pop   Rs  200L/yr  ($300k)   :  $ 150 b
+       sec_a1 : 0.020,     # the rich     2.0m hh   8M pop   Rs   30L/yr  ($ 50k)   :  $ 100 b
+       sec_a  : 0.100,     # uppper-mid  10.0m hh  50M pop   Rs   15L/yr  ($ 25k)   :  $ 250 b
+       sec_b  : 0.20,      # mid         15.0m hh  75M pop   Rs    6L/yr  ($ 10k)   :  $ 150 b
+       sec_c  : 0.25,      # lower-mid   20.0m hh 100M pop   Rs    3L/yr  ($  5k)   :  $ 100 b
+       sec_d  : 0.25,      # aspiring    20.0m hh 100M pop   Rs    2L/yr  ($3.5k)   :  $  70 b
+       sec_e  : 0.175      # poor        15.0m hh  75M pop   Rs    1L/yr  ($  2k)   :  $  30 b
+   }                       # urban       82.5m hh 450M pop   Rs    4L/yr  ($  7k)   :  $ 850 b
+
+dist-hhi-2 :
+   - dim  : hhi
+   - cond : { tier: [t5,t6,t7,t8] } # distribution in rural areas
+   - dist : {
+       sec_a0 : 0.00,
+       sec_a1 : 0.00,
+       sec_a  : 0.00,
+       sec_b  : 0.05,     # mid         20.0m hh 100M pop   Rs    6L/yr  ($ 10k)   :  $ 200 b
+       sec_c  : 0.10,     # lower-mid   30.0m hh 150M pop   Rs    3L/yr  ($  5k)   :  $ 150 b
+       sec_d  : 0.45,     # aspiring    80.0m hh 400M pop   Rs    2L/yr  ($  3k)   :  $ 240 b
+       sec_e  : 0.40      # poor        50.0m hh 250M pop   Rs    1L/yr  ($  1.5k) :  $  80 b
+   }                      # rural      180m   hh 900M pop   Rs  2.5L/yr  ($  4k)   :  $ 670 b
