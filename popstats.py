@@ -73,9 +73,9 @@ def usage():
           "\t load  <filename> : load stats from a file \n " \
           "\t save  <filename> : saves the stats in a file \n\n" \
           "\t Queries : \n" \
-          "\t $segment1-segment2-...  : get the count of people that match the specified segments \n" \
-          "\t #dimensionX$segment1-segment2 : print the distribution of a dimension for people who match the specified segments\n\n" \
-          "\t Sample queries : #age, $female-youth-t2,  #age-gender$t2,  #age$female-t1 \n "
+          "\t $seg1-seg2  : count of people that match segments seg1 AND seg2 \n" \
+          "\t #dimX-dimY$seg1-seg2 : table of dim X vs dim Y - for people who are in seg1 and seg2 \n\n" \
+          "\t Sample queries : $male-t1, $female-youth-t2, #age, #age-gender$t2, #age$female-t1 \n "
 
 
 # the main interpreter command loop.
@@ -118,7 +118,7 @@ def cmdLoop(init_cmds):
             except Exception:
                 print "Error in reading file"
                 continue
-            print "Loaded %d entities" % num_entities
+            print "Loaded %d entities" % (people.num * people.size)
         elif cmd.startswith("dims"):
             print "Dimensions : %s " % people.segment.dims
             for dim in people.segment.dims:
@@ -190,7 +190,15 @@ def cmdLoop(init_cmds):
 
 
 def main(argv=None):
-    init_cmds = ["create 100000, 13500", "add config-asl.yml", "add config-income.yml"]
+    if argv is None:
+        argv = sys.argv
+    if len(argv) == 2 :
+        fname = argv[1]
+        cmd1  = "load " + fname
+        init_cmds = [ cmd1 ]
+    else:
+        cmd1 = "create 1000000, 13500"
+        init_cmds = [ cmd1, "add config-asl.yml", "add config-income.yml"]
     cmdLoop(init_cmds)
 
 if __name__ == "__main__":
